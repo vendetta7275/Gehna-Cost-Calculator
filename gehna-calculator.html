@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Gehna cost calculator</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,700&display=swap">
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+--bg:#eef1ef;--card:#fff;--ink:#14231f;--mute:#5d6d67;--line:#d5dcd8;--deep:#0f2a24;--brass:#e0b04a;--bad:#a32d2d;--badbg:#fcebeb;--good:#1f6b4f;--goodbg:#e3f3ea;--in:#f6f8f7}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0c1512;--card:#142320;--ink:#e8efec;--mute:#93a69f;--line:#27403a;--deep:#07110e;--brass:#e8bd5c;--bad:#f09595;--badbg:#3a1c1c;--good:#8fd6b4;--goodbg:#173a2d;--in:#0f1c19}}
+:root[data-theme="dark"]{--bg:#0c1512;--card:#142320;--ink:#e8efec;--mute:#93a69f;--line:#27403a;--deep:#07110e;--brass:#e8bd5c;--bad:#f09595;--badbg:#3a1c1c;--good:#8fd6b4;--goodbg:#173a2d;--in:#0f1c19}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Bricolage Grotesque",system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.5}
+main{max-width:480px;margin:0 auto;padding:20px 16px 40px}
+h1{font-size:26px;font-weight:700;margin:4px 0 2px;letter-spacing:-.01em}
+.sub{color:var(--mute);font-size:14px;margin:0 0 18px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px;margin-bottom:14px}
+h2{font-size:15px;font-weight:500;margin:0 0 10px}
+.g{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.f{display:flex;flex-direction:column;gap:4px;min-width:0}
+.f.w{grid-column:1/-1}
+label{font-size:12.5px;color:var(--mute)}
+input,select{width:100%;font:inherit;font-size:16px;color:var(--ink);background:var(--in);border:1px solid var(--line);border-radius:8px;padding:10px;min-height:44px}
+input:focus,select:focus{outline:2px solid var(--brass);outline-offset:1px}
+.hint{font-size:12px;color:var(--mute);margin:8px 0 0}
+.res{background:var(--deep);color:#e8efec;border-radius:14px;padding:16px;margin-bottom:14px}
+.big{font-size:40px;font-weight:700;color:var(--brass);letter-spacing:-.02em;line-height:1.1;margin:2px 0 4px}
+.res small{color:#9fb5ad;font-size:13px}
+.r{display:flex;justify-content:space-between;gap:10px;font-size:14px;padding:7px 0;border-top:1px solid rgba(255,255,255,.12)}
+.r:first-of-type{margin-top:12px}
+.r span:first-child{color:#9fb5ad}
+#cmp{border-radius:10px;padding:12px;font-size:14px;margin-top:12px;display:none}
+.pg{font-size:13px;color:var(--mute);margin-top:6px}
+footer{text-align:center;font-size:13px;color:var(--mute);padding:16px 0 4px}
+button{font:inherit;font-size:14px;background:transparent;color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:10px 14px;min-height:44px;cursor:pointer}
+</style>
+</head>
+<body>
+<main>
+<h1>Gehna cost calculator</h1>
+<p class="sub">Jeweller ka bill sahi hai ya nahi, khud check karo.</p>
+
+<section class="card">
+<h2>1. Gold ki details</h2>
+<div class="g">
+<div class="f"><label for="rate">Aaj ka rate (10 gram)</label><input id="rate" type="number" inputmode="decimal" value="125000"></div>
+<div class="f"><label for="rc">Ye rate kis carat ka hai</label><select id="rc"><option value="1">24K</option><option value="0.916">22K</option><option value="0.75">18K</option></select></div>
+<div class="f"><label for="ic">Gehne ka carat</label><select id="ic"><option value="1">24K</option><option value="0.916" selected>22K</option><option value="0.75">18K</option><option value="0.585">14K</option></select></div>
+<div class="f"><label for="wt">Weight (gram)</label><input id="wt" type="number" inputmode="decimal" value="10"></div>
+</div>
+<p class="hint">Rate wahi daalo jo shop me display hai.</p>
+</section>
+
+<section class="card">
+<h2>2. Charges</h2>
+<div class="g">
+<div class="f"><label for="mt">Making charge type</label><select id="mt"><option value="pct">% of gold value</option><option value="pg">Rs per gram</option><option value="flat">Fixed Rs</option></select></div>
+<div class="f"><label for="mv">Making charge</label><input id="mv" type="number" inputmode="decimal" value="12"></div>
+<div class="f"><label for="ws">Wastage % (agar alag se ho)</label><input id="ws" type="number" inputmode="decimal" value="0"></div>
+<div class="f"><label for="st">Stone / hallmark (Rs)</label><input id="st" type="number" inputmode="decimal" value="0"></div>
+<div class="f"><label for="gst">GST %</label><input id="gst" type="number" inputmode="decimal" value="3"></div>
+<div class="f"><label for="quote">Jeweller ka total bill (Rs)</label><input id="quote" type="number" inputmode="decimal" placeholder="Bill se dekh ke daalo"></div>
+</div>
+</section>
+
+<section class="res" aria-live="polite">
+<small>Actual total</small>
+<div class="big" id="tot">Rs 0</div>
+<small id="pg"></small>
+<div class="r"><span>Gold rate (gram, is carat ka)</span><span id="o1"></span></div>
+<div class="r"><span>Gold value</span><span id="o2"></span></div>
+<div class="r"><span>Wastage</span><span id="o3"></span></div>
+<div class="r"><span>Making charge</span><span id="o4"></span></div>
+<div class="r"><span>Stone / hallmark</span><span id="o5"></span></div>
+<div class="r"><span>Subtotal</span><span id="o6"></span></div>
+<div class="r"><span>GST</span><span id="o7"></span></div>
+<div id="cmp"></div>
+</section>
+
+<p class="hint">Calculation: (aaj ka 24K rate ÷ 10) × carat factor × weight, phir making, wastage, stone aur GST jodte hain. 22K = 0.916, 18K = 0.75, 14K = 0.585. Ye sirf andaza hai, final price jeweller ke invoice se confirm karo.</p>
+</main>
+<footer>&copy; <span id="yr">2026</span> Vendetta Web. All rights reserved.</footer>
+
+<script>
+var $=function(i){return document.getElementById(i)};
+var num=function(i){return parseFloat($(i).value)||0};
+var fmt=function(x){return 'Rs '+Math.round(x).toLocaleString('en-IN')};
+try{var s=localStorage.getItem('gehna_rate');if(s)$('rate').value=s;var c=localStorage.getItem('gehna_rc');if(c)$('rc').value=c}catch(e){}
+function calc(){
+var p24=num('rate')/10/parseFloat($('rc').value);
+var rg=p24*parseFloat($('ic').value);
+var gv=rg*num('wt');
+var ws=gv*num('ws')/100;
+var t=$('mt').value,mk=t==='pct'?gv*num('mv')/100:t==='pg'?num('mv')*num('wt'):num('mv');
+var sub=gv+ws+mk+num('st');
+var g=sub*num('gst')/100,tot=sub+g;
+$('o1').textContent=fmt(rg);$('o2').textContent=fmt(gv);$('o3').textContent=fmt(ws);
+$('o4').textContent=fmt(mk);$('o5').textContent=fmt(num('st'));$('o6').textContent=fmt(sub);
+$('o7').textContent=fmt(g);$('tot').textContent=fmt(tot);
+$('pg').textContent=num('wt')>0?'Yaani lagbhag '+fmt(tot/num('wt'))+' per gram':'';
+var q=num('quote'),c=$('cmp');
+if(q>0){var d=q-tot;c.style.display='block';
+if(d>tot*0.01){c.style.background='var(--badbg)';c.style.color='var(--bad)';c.textContent='Jeweller ka bill '+fmt(d)+' zyada hai. Breakdown maango: rate, making, wastage.'}
+else if(d<-tot*0.01){c.style.background='var(--goodbg)';c.style.color='var(--good)';c.textContent='Bill calculation se '+fmt(-d)+' kam hai. Acha deal hai.'}
+else{c.style.background='var(--goodbg)';c.style.color='var(--good)';c.textContent='Bill sahi hai. Farak sirf '+fmt(Math.abs(d))+'.'}
+}else c.style.display='none';
+try{localStorage.setItem('gehna_rate',$('rate').value);localStorage.setItem('gehna_rc',$('rc').value)}catch(e){}
+}
+['input','change'].forEach(function(ev){document.querySelectorAll('input,select').forEach(function(e){e.addEventListener(ev,calc)})});
+calc();
+$("yr").textContent=new Date().getFullYear();
+</script>
+</body>
+</html>

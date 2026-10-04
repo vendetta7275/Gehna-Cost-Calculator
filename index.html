@@ -39,22 +39,21 @@ button{font:inherit;font-size:14px;background:transparent;color:var(--ink);borde
 </head>
 <body>
 <main>
-<h1>Gehna cost calculator</h1>
-<p class="sub">Jeweller ka bill sahi hai ya nahi, khud check karo.</p>
+<h1>Gehna Cost Calculator</h1>
 
 <section class="card">
-<h2>1. Gold ki details</h2>
+<h2>Gold Details</h2>
 <div class="g">
 <div class="f"><label for="rate">Aaj ka rate (10 gram)</label><input id="rate" type="number" inputmode="decimal" value="125000"></div>
 <div class="f"><label for="rc">Ye rate kis carat ka hai</label><select id="rc"><option value="1">24K</option><option value="0.916">22K</option><option value="0.75">18K</option></select></div>
 <div class="f"><label for="ic">Gehne ka carat</label><select id="ic"><option value="1">24K</option><option value="0.916" selected>22K</option><option value="0.75">18K</option><option value="0.585">14K</option></select></div>
 <div class="f"><label for="wt">Weight (gram)</label><input id="wt" type="number" inputmode="decimal" value="10"></div>
 </div>
-<p class="hint">Rate wahi daalo jo shop me display hai.</p>
+
 </section>
 
 <section class="card">
-<h2>2. Charges</h2>
+<h2>Charges</h2>
 <div class="g">
 <div class="f"><label for="mt">Making charge type</label><select id="mt"><option value="pct">% of gold value</option><option value="pg">Rs per gram</option><option value="flat">Fixed Rs</option></select></div>
 <div class="f"><label for="mv">Making charge</label><input id="mv" type="number" inputmode="decimal" value="12"></div>
@@ -79,7 +78,7 @@ button{font:inherit;font-size:14px;background:transparent;color:var(--ink);borde
 <div id="cmp"></div>
 </section>
 
-<p class="hint">Calculation: (aaj ka 24K rate ÷ 10) × carat factor × weight, phir making, wastage, stone aur GST jodte hain. 22K = 0.916, 18K = 0.75, 14K = 0.585. Ye sirf andaza hai, final price jeweller ke invoice se confirm karo.</p>
+<p class="hint">Calculation: (Today's 24K rate ÷ 10) × carat factor × weight, then add making charges, wastage, stone charges and GST. 22K = 0.916, 18K = 0.75, 14K = 0.585.</p>
 </main>
 <footer>&copy; <span id="yr">2026</span> Vendetta Web. All rights reserved.</footer>
 
